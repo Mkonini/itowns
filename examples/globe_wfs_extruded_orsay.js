@@ -138,7 +138,7 @@ globeView.addLayer({
    //    meshes.push(mesh);
    //  },
     filter: acceptFeature,
-    url: 'http://wxs.ign.fr/va5orxd0pgzvq3jxutqfuy0b/geoportail/wfs?',
+    url: 'https://wxs.ign.fr/va5orxd0pgzvq3jxutqfuy0b/geoportail/wfs?',
     networkOptions: { crossOrigin: 'anonymous' },
     protocol: 'wfs',
     version: '2.0.0',
