@@ -3,6 +3,9 @@
     "protocol":   "wmts",
     "id":         "ScanEX",
     "url":        "http://wxs.ign.fr/va5orxd0pgzvq3jxutqfuy0b/geoportail/wmts",
+    "visible": false,
+    "opacity": 1,
+    "transparent": true,
     "networkOptions": {
         "crossOrigin": "anonymous"
     },

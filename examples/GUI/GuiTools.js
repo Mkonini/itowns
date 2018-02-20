@@ -31,7 +31,7 @@ function GuiTools(domId, view, w) {
     this.gui.domElement.id = domId;
     viewerDiv.appendChild(this.gui.domElement);
     this.colorGui = this.gui.addFolder('Color Layers');
-    this.elevationGui = this.gui.addFolder('Elevation Layers');
+    //this.elevationGui = this.gui.addFolder('Elevation Layers');
 
     if (view) {
         view.addEventListener('layers-order-changed', (function refreshColorGui() {
@@ -62,12 +62,14 @@ GuiTools.prototype.addImageryLayerGUI = function addImageryLayerGUI(layer) {
     }).bind(this));
 };
 
+/* Remove Frozen from GUI
 GuiTools.prototype.addElevationLayerGUI = function addElevationLayerGUI(layer) {
     var folder = this.elevationGui.addFolder(layer.id);
     folder.add({ frozen: layer.frozen }, 'frozen').onChange(function refreshFrozenGui(value) {
         layer.frozen = value;
     });
 };
+END Remove frozen from GUI*/
 
 GuiTools.prototype.addImageryLayersGUI = function addImageryLayersGUI(layers) {
     var i;
@@ -80,12 +82,14 @@ GuiTools.prototype.addImageryLayersGUI = function addImageryLayersGUI(layers) {
     }
 };
 
+/* Remove elevation layers from GUI
 GuiTools.prototype.addElevationLayersGUI = function addElevationLayersGUI(layers) {
     var i;
     for (i = 0; i < layers.length; i++) {
         this.addElevationLayerGUI(layers[i]);
     }
 };
+END remove Elevation Layers from GUI*/
 
 GuiTools.prototype.removeLayersGUI = function removeLayersGUI(nameLayer) {
     this.colorGui.removeFolder(nameLayer);

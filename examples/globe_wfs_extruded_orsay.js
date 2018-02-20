@@ -12,11 +12,13 @@ var scaler;
 var viewerDiv = document.getElementById('viewerDiv');
 
 // Instanciate iTowns GlobeView*
-var globeView = new itowns.GlobeView(viewerDiv, positionOnGlobe, { renderer: renderer });
+//var globeView = new itowns.GlobeView(viewerDiv, positionOnGlobe, { renderer: renderer });
+var globeView = new itowns.GlobeView(viewerDiv, positionOnGlobe, { handleCollision: false });
+
 function addLayerCb(layer) {
     return globeView.addLayer(layer);
 }
-
+globeView.controls.minDistance = 30;
 // Define projection that we will use (taken from https://epsg.io/3946, Proj4js section)
 itowns.proj4.defs('EPSG:3946',
     '+proj=lcc +lat_1=45.25 +lat_2=46.75 +lat_0=46 +lon_0=3 +x_0=1700000 +y_0=5200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
@@ -36,7 +38,7 @@ promises.push(itowns.Fetcher.json('./layers/JSONLayers/Cada.json').then(addLayer
 
 // Add two elevation layers.
 // These will deform iTowns globe geometry to represent terrain elevation.
-promises.push(itowns.Fetcher.json('./layers/JSONLayers/WORLD_DTM.json').then(addLayerCb));
+//promises.push(itowns.Fetcher.json('./layers/JSONLayers/WORLD_DTM.json').then(addLayerCb));
 promises.push(itowns.Fetcher.json('./layers/JSONLayers/IGN_MNT_HIGHRES.json').then(addLayerCb));
 
 // // function altitudeLine(properties, contour) {
@@ -131,19 +133,19 @@ globeView.addLayer({
         color: colorBuildings,
         altitude: altitudeBuildings,
         extrude: extrudeBuildings }),
-//    onMeshCreated: function scaleZ(mesh) {
-//       mesh.scale.z = 0.01;
-//       meshes.push(mesh);
-//    },
+   // onMeshCreated: function scaleZ(mesh) {
+   //    mesh.scale.z = 0.01;
+   //    meshes.push(mesh);
+   //  },
     filter: acceptFeature,
-    url: 'http://wxs.ign.fr/72hpsel8j8nhb5qgdh07gcyp/geoportail/wfs?',
+    url: 'http://wxs.ign.fr/va5orxd0pgzvq3jxutqfuy0b/geoportail/wfs?',
     networkOptions: { crossOrigin: 'anonymous' },
     protocol: 'wfs',
     version: '2.0.0',
     id: 'WFS Buildings',
     typeName: 'BDTOPO_BDD_WLD_WGS84G:bati_remarquable,BDTOPO_BDD_WLD_WGS84G:bati_indifferencie,BDTOPO_BDD_WLD_WGS84G:bati_industriel',
     level: 14,
-    //modification du level à 15 pour démo orsay
+    //modification du level à 15 si plus de 1 000 objets
     //level: 15,
     projection: 'EPSG:4326',
     ipr: 'IGN',

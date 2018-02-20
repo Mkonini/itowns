@@ -84,9 +84,10 @@
                     globeView.controls.setTilt(45, true);
                 });
             });
+            /* Suppression DEBUG
             var d = new debug.Debug(globeView, menuGlobe.gui);
             debug.createTileDebugUI(menuGlobe.gui, globeView, globeView.wgs84TileLayer, d);
-
+            End suppression DEBUG*/
             function picking(event) {
                 // Pick an object with batch id
                 var mouse = globeView.eventToNormalizedCoords(event);
@@ -118,13 +119,16 @@
                 }
             }
 
+           
             for (const layer of globeView.getLayers()) {
+                /*
                 if (layer.id === 'WFS Bus lines') {
                     layer.whenReady.then( function _(layer) {
                         var gui = debug.GeometryDebug.createGeometryDebugUI(menuGlobe.gui, globeView, layer);
                         debug.GeometryDebug.addMaterialLineWidth(gui, globeView, layer, 1, 10);
                     });
                 }
+                */
                 if (layer.id === 'WFS Buildings') {
                     layer.whenReady.then( function _(layer) {
                         var gui = debug.GeometryDebug.createGeometryDebugUI(menuGlobe.gui, globeView, layer);
@@ -132,13 +136,16 @@
                         window.addEventListener('mousemove', picking, false);
                     });
                 }
+                /*
                 if (layer.id === 'WFS Route points') {
                     layer.whenReady.then( function _(layer) {
                         var gui = debug.GeometryDebug.createGeometryDebugUI(menuGlobe.gui, globeView, layer);
                         debug.GeometryDebug.addMaterialSize(gui, globeView, layer, 1, 50);
                     });
                 }
+                */
             }
+            
         </script>
          <div id="batchInformationDiv">
             <p><b>Information Batiment</b></p>
