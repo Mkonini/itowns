@@ -56,10 +56,12 @@ GuiTools.prototype.addImageryLayerGUI = function addImageryLayerGUI(layer) {
         layer.opacity = value;
         this.view.notifyChange(true);
     }).bind(this));
+    /* Remove Frozen from GUI
     folder.add({ frozen: layer.frozen }, 'frozen').onChange((function updateFrozen(value) {
         layer.frozen = value;
         this.view.notifyChange(true);
     }).bind(this));
+    END Remove frozen from GUI*/
 };
 
 /* Remove Frozen from GUI
@@ -69,7 +71,7 @@ GuiTools.prototype.addElevationLayerGUI = function addElevationLayerGUI(layer) {
         layer.frozen = value;
     });
 };
-END Remove frozen from GUI*/
+END Remove Elevation frozen from GUI*/
 
 GuiTools.prototype.addImageryLayersGUI = function addImageryLayersGUI(layers) {
     var i;
