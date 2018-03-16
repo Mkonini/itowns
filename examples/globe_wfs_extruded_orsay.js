@@ -38,7 +38,7 @@ promises.push(itowns.Fetcher.json('./layers/JSONLayers/Cada.json').then(addLayer
 -
 // Add two elevation layers.
 // These will deform iTowns globe geometry to represent terrain elevation.
-//promises.push(itowns.Fetcher.json('./layers/JSONLayers/WORLD_DTM.json').then(addLayerCb));
+promises.push(itowns.Fetcher.json('./layers/JSONLayers/WORLD_DTM.json').then(addLayerCb));
 promises.push(itowns.Fetcher.json('./layers/JSONLayers/IGN_MNT_HIGHRES.json').then(addLayerCb));
 
 // // function altitudeLine(properties, contour) {
@@ -89,12 +89,13 @@ function colorBuildings(properties) {
 }
 
 function altitudeBuildings(properties) {
-    // return properties.z_min - properties.hauteur;
-    return properties.z_min - properties.hauteur - 70;
+    return properties.z_min - properties.hauteur - 1;
+   // return properties.z_min - properties.hauteur - 70;
 }
 
 function extrudeBuildings(properties) {
-    return properties.hauteur + 70;
+    return properties.hauteur + 1;
+    //return properties.hauteur + 70;
 }
 
 function acceptFeature(properties) {
