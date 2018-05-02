@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <title>Itowns - Planar + TMS + Vector Tile</title>
+
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/example.css">
+        <link rel="stylesheet" type="text/css" href="css/loading_screen.css">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="viewerDiv"></div>
+        <div id="debug" width="400" height="300"></div>
+        <script src="../dist/itowns.js"></script>
+        <script src="js/loading_screen.js"></script>
+        <script type="text/javascript">
+            // # Planar view with one single layer of vector tile
+            // Define geographic extent: CRS, min/max X, min/max Y
+            var extent = new itowns.Extent(
+                'EPSG:3857',
+                -20037508.342789244, 20037508.342789244,
+                -20037508.342789255, 20037508.342789244);
+
+            // `viewerDiv` will contain iTowns' rendering area (`<canvas>`)
+            var viewerDiv = document.getElementById('viewerDiv');
+
+            // Instanciate PlanarView
+            var view = new itowns.PlanarView(viewerDiv, extent, { maxSubdivisionLevel: 20 });
+
+            // eslint-disable-next-line no-new
+            new itowns.PlanarControls(view, {
+                // We do not want the user to zoom out too much
+                maxAltitude: 40000000,
+                // We want to keep the rotation disabled, to only have a view from the top
+                enableRotation: false,
+                // Faster zoom in/out speed
+                zoomInFactor: 0.5,
+                zoomOutFactor: 0.5,
+                // Don't zoom too much on smart zoom
+                smartZoomHeightMax: 100000,
+            });
+
+            // Turn in the right angle
+            view.camera.camera3D.rotateZ(-Math.PI / 2);
+            view.camera.camera3D.position.x = 275101;
+            view.camera.camera3D.position.y = 6237652;
+            view.camera.camera3D.position.z = 78270;
+            view.notifyChange(true);
+
+            setupLoadingScreen(viewerDiv, view);
+
+            // By default itowns' tiles geometry have a "skirt" (ie they have a height),
+            // but in case of orthographic we don't need this feature, so disable it
+            view.tileLayer.disableSkirt = true;
+
+            view.addLayer({
+                type: 'color',
+                protocol: 'xyz',
+                id: 'OPENSM',
+                // eslint-disable-next-line no-template-curly-in-string
+                url: 'http://c.tile.stamen.com/watercolor/${z}/${x}/${y}.jpg',
+                networkOptions: { crossOrigin: 'anonymous' },
+                extent: [extent.west(), extent.east(), extent.south(), extent.north()],
+                projection: 'EPSG:3857',
+                options: {
+                    attribution: {
+                        name: 'OpenStreetMap',
+                        url: 'http://www.openstreetmap.org/',
+                    },
+                },
+                updateStrategy: {
+                    type: itowns.STRATEGY_DICHOTOMY,
+                },
+            });
+
+            view.addLayer({
+                type: 'color',
+                protocol: 'tms',
+                id: 'MVT',
+                // eslint-disable-next-line no-template-curly-in-string
+                url: 'http://172.16.3.109:8082/geoserver/gwc/service/tms/1.0.0/vecteur_tuile:bduni@EPSG:3857@pbf/${z}/${x}/${y}.pbf',
+                format: 'application/x-protobuf;type=mapbox-vector',
+                options: {
+                    attribution: {
+                        name: 'OpenStreetMap',
+                        url: 'http://www.openstreetmap.org/',
+                    },
+                    zoom: {
+                        min: 5,
+                        max: 20,
+                    },
+                    opacity: 0.5,
+                },
+                updateStrategy: {
+                    type: itowns.STRATEGY_DICHOTOMY,
+                },
+                style: function (properties, feature) {
+                    var style = {
+                        fillOpacity: 0.7,
+                    };
+
+                    if (properties.vt_layer == 'surface_commune') {
+                        style.fill = '#ccffff';
+                    } else if (properties.vt_layer == 'zone_de_vegetation') {
+                        style.fill = '#7fff00';
+                    } else if (properties.vt_layer == 'batiment') {
+                        style.fill = '#ffcccc';
+                    }
+
+                    return style;
+                },
+            });
+
+            // Request redraw
+            view.notifyChange(true);
+        </script>
+    </body>
+</html>
