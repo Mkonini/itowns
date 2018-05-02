@@ -1,0 +1,1 @@
+{"root": {"refine": "add", "children": [{"boundingVolume": {"region": [0.0, 0.7853981633974483, 0.09817477042468103, 0.8835729338221293, 0.0, 0.0]}, "geometricError": 1029.0, "content": {"url": "root/0.json"}}], "boundingVolume": {"sphere": [0.0, 0.0, 0.0, 6378137.0]}, "geometricError": 2058}, "asset": {"gltfUpAxis": "Z", "version": "1.0"}}

@@ -1,0 +1,1 @@
+{"root": {"refine": "add", "boundingVolume": {"region": [0.04199272406836942, 0.852509822867445, 0.04208859786761228, 0.852605696666688, 0.0, 0.0]}, "geometricError": 1.0048828125}, "asset": {"gltfUpAxis": "Z", "version": "1.0"}}

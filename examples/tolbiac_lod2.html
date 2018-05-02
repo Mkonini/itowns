@@ -118,7 +118,7 @@
             var renderer;
             var exports = {};
         </script>
-        <script src="idf_lod1.js"></script>
+        <script src="tolbiac_lod2.js"></script>
         <script type="text/javascript">
             /* global itowns, document, GuiTools, globeView, promises */
             var menuGlobe = new GuiTools('menuDiv', globeView);
@@ -170,12 +170,12 @@
             );
 
             $3dTilesLayerRequestVolume.name = 'RequestVolume';
-            $3dTilesLayerRequestVolume.url = 'http://localhost:8080/examples/3dtiles/IDF_LOD1/idf/root.json';
+            $3dTilesLayerRequestVolume.url = 'http://localhost:8080/cache_test/tolbiac/root.json';
             $3dTilesLayerRequestVolume.protocol = '3d-tiles';
             $3dTilesLayerRequestVolume.overrideMaterials = true;  // custom cesium shaders are not functional
             $3dTilesLayerRequestVolume.type = 'geometry';
             $3dTilesLayerRequestVolume.visible = true;
-            $3dTilesLayerRequestVolume.sseThreshold = 1;
+            $3dTilesLayerRequestVolume.sseThreshold = 0;
             $3dTilesLayerRequestVolume.overrideMaterials = false;
             // add an event for have information when you move your mouse on a building
             itowns.View.prototype.addLayer.call(globeView, $3dTilesLayerRequestVolume).then(function _() { window.addEventListener('mousemove', picking, false); })
